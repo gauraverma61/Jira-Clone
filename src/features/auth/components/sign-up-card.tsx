@@ -21,6 +21,7 @@ import {
   import { useForm } from "react-hook-form";
   import { z } from "zod";
   import { zodResolver } from "@hookform/resolvers/zod";
+import { useRegister } from "../api/use-register";
   
   const SignUpSchema = z.object({
     name: z.string().min(2),
@@ -37,9 +38,11 @@ import {
         password: "",
       },
     });
+
+    const {mutate} = useRegister();
   
-    const onSubmit = (data: z.infer<typeof SignUpSchema>) => {
-      console.log(data);
+    const onSubmit = (values: z.infer<typeof SignUpSchema>) => {
+      mutate(values)
     };
   
     return (

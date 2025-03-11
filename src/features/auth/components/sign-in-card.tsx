@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useLogin } from "../api/use-login";
 
 const SignInSchema = z.object({
   email: z.string().email(),
@@ -30,8 +31,10 @@ export const SignInCard = () => {
     },
   });
 
-  const handleSubmit = (data: z.infer<typeof SignInSchema>) => {
-    console.log(data);
+  const { mutate } = useLogin();
+
+  const handleSubmit = (values: z.infer<typeof SignInSchema>) => {
+    mutate(values);
   };
 
   return (
