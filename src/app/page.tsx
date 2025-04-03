@@ -1,8 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Image from "next/image";
+import { getCurrent } from "@/features/auth/action";
+import { redirect } from "next/navigation";
 
-export default function Home() {
+export default async function Home() {
+  const user = await getCurrent();
+
+  if (!user) {
+    redirect("/sign-in")
+  }
+
   return (
     <div className=" p-10 flex gap-6">
       <Input/>
